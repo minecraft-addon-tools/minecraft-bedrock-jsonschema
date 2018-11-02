@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "https://raw.githubusercontent.com/AtomicBlom/minecraft-json-schemas/bedrock/bedrock/manifest.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}$",
+      "default": "00000000-0000-0000-0000-000000000000"
+    },
+    "version": {
+      "type": "array",
+      "maxItems": 3,
+      "minItems": 3,
+      "items": {
+        "type": "integer",
+        "default": 0,
+        "examples": [
+          16,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "properties": {
+    "format_version": {
+      "$id": "/properties/format_version",
+      "type": "integer",
+      "title": "Minecraft Bedrock Manifest Format",
+      "default": 1
+    },
+    "header": {
+      "$id": "/properties/header",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "$id": "/properties/header/properties/description",
+          "type": "string",
+          "title": "Pack description",
+          "default": ""
+        },
+        "name": {
+          "$id": "/properties/header/properties/name",
+          "type": "string",
+          "title": "Pack name",
+          "default": ""
+        },
+        "uuid": {
+          "$id": "/properties/header/properties/uuid",
+          "$ref": "#/definitions/uuid",
+          "title": "Pack UUID"
+        },
+        "version": {
+          "$id": "/properties/header/properties/version",
+          "$ref": "#/definitions/version",
+          "title": "Pack Version"
+        }
+      },
+      "required": [
+        "version",
+        "uuid",
+        "name",
+        "description"
+      ]
+    },
+    "modules": {
+      "$id": "/properties/modules",
+      "type": "array",
+      "items": {
+        "$id": "/properties/modules/items",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "$id": "/properties/modules/items/properties/description",
+            "type": "string",
+            "title": "Minecraft Bedrock Pack Description",
+            "default": "Example pack description"
+          },
+          "type": {
+            "$id": "/properties/modules/items/properties/type",
+            "type": "string",
+            "title": "Minecraft Bedrock Manifest Pack Type",
+            "enum": [
+              "resources",
+              "data",
+              "client_data"
+            ]
+          },
+          "uuid": {
+            "$id": "/properties/modules/items/properties/uuid",
+            "$ref": "#/definitions/uuid"
+          },
+          "version": {
+            "$id": "/properties/modules/items/properties/version",
+            "$ref": "#/definitions/version"
+          }
+        },
+        "required": [
+          "version",
+          "uuid",
+          "type",
+          "description"
+        ]
+      }
+    },
+    "subpacks": {
+      "$id": "/properties/subpacks",
+      "type": "array",
+      "items": {
+        "$id": "/properties/subpacks/items",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "folder_name": {
+            "$id": "/properties/subpacks/items/properties/folder_name",
+            "type": "string",
+            "title": "Minecraft Bedrock Subpacks Folder Name",
+            "description": "Located in /subpacks/NAME_HERE/",
+            "default": "",
+            "examples": [
+              "ExampleSubpack"
+            ]
+          },
+          "name": {
+            "$id": "/properties/subpacks/items/properties/name",
+            "type": "string",
+            "title": "Minecraft Bedrock Subpacks Name",
+            "default": "Low-memory version"
+          },
+          "memory_tier": {
+            "$id": "/properties/subpacks/items/properties/memory_tier",
+            "type": "integer",
+            "title": "Minecraft Bedrock Subpacks Memory Tier",
+            "default": 0,
+            "examples": [
+              1
+            ]
+          }
+        },
+        "required": [
+          "folder_name",
+          "name",
+          "memory_tier"
+        ]
+      }
+    },
+    "dependencies": {
+      "$id": "/properties/dependencies",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "uuid": {
+            "$id": "/properties/dependencies/uuid",
+            "$ref": "#/definitions/uuid",
+            "title": "Dependency UUID",
+            "description": "The ID of a related module that must also be loaded with this pack"
+          },
+          "version": {
+            "$id": "/properties/dependencies/version",
+            "$ref": "#/definitions/version",
+            "title": "Minimum Dependency Version",
+            "description": "The minimum version of the dependency"
+          }
+        },
+        "required": [
+          "uuid",
+          "version"
+        ]
+      }
+    }
+  },
+  "required": [
+    "format_version",
+    "header"
+  ]
+}

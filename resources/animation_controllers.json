@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$id": "https://raw.githubusercontent.com/AtomicBlom/minecraft-json-schemas/bedrock/bedrock/resources/entity.json",
+    "type": "object",
+    "title": "EntityModel",
+    "definitions": {
+    },
+    "properties": {
+        "format_version": {
+            "type": "string"
+        },
+        "animation_controllers": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "states": {
+                        "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                                "parameters": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "states"
+                ]
+            }
+        }
+    },
+    "required": [
+        "format_version",
+        "animation_controllers"
+    ]
+}
